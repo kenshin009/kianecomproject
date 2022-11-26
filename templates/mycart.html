@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %} My Cart {% endblock %}
+
+{% block content %} 
+    {% if not cart %}
+        <p class="p-4 bg-gray-400 text-xs text-white">You have not bought any products yet.</p>
+    {% endif %}
+    
+    
+    <div class="max-w-6xl mx-auto flex flex-wrap items-start p-6 xl:px-0">
+        <div class="products w-full lg:w-3/4 mb-5">
+                <table class="w-3/4 table-auto border-collapse p-5 border border-slate-400">
+                    <tr>
+                        <th class='border border-slate-300'>No</th>
+                        <th class='border border-slate-300'>Product Name</th>
+                        <th class='border border-slate-300'>Price</th>
+                        <th class='border border-slate-300'>Quantity</th>
+                        <th class='border border-slate-300'>Subtotal</th>
+                        <th class='border border-slate-300'>Action</th>
+                    </tr>
+                    {% for cp in cartproduct %}
+                    <tr>
+                        <td class='border border-slate-300'>{{ forloop.counter }}</td>
+                        <td class='border border-slate-300'>{{ cp.product.title }}</td>
+                        <td class='border border-slate-300'>{{ cp.price }}</td>
+                        <td class='border border-slate-300'>{{ cp.quantity }}</td>
+                        <td class='border border-slate-300'>{{ cp.subtotal }}</td>
+                        <td class='border border-slate-300 text-center py-4 px-3'>
+                            <a href="{% url 'ecom:manage_cart' cp.id %}?action=inc" class="py-2 px-3 bg-sky-500">+</a>
+                            <a href="{% url 'ecom:manage_cart' cp.id %}?action=dcr" class="py-2 px-3 bg-yellow-500">-</a>
+                            <a href="{% url 'ecom:manage_cart' cp.id %}?action=rmv" class="py-2 px-3 bg-red-500">x</a>
+
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                  
+                </table>
+        </div> 
+        <div class="checkout p-6 w-full lg:w-1/4 bg-gray-200 rounded-xl">
+            <h2 class="uppercase text-lg mb-5">Checkout</h2>
+
+            <div class="mb-6 flex justify-between">
+                <span class="font-semibold">Toal:</span>
+                <span>{{ cart.total }}</span>
+            </div>
+
+            <a href="{% url 'ecom:checkout' %}" class="inline-block py-4 px-8 bg-teal-500 rounded-xl hover:bg-teal-700 text-white">Checkout</a>
+        </div>
+    </div>
+{% endblock %}

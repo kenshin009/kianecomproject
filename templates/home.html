@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+    <h1 class='text-3xl my-7 text-center font-semibold'>Welcome from Ken e-shopping mart!</h1>
+
+    <div class="max-w-6xl mx-auto flex flex-wrap items-start py-2 px-6 xl:px-0">
+        <div class="filters w-full lg:w-1/4">
+            <h3 class="mb-3 text-xl uppercase">Search</h3>
+
+            <form action="." method="get">
+                <div class="flex">
+                    <input type="search" name="query" class="p-4 bg-gray-100 border-0" placeholder="Search..">
+                    <button class="p-4 bg-gray-100 border-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-black">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+            <h3 class=" mt-6 mb-3 text-xl uppercase">Categories</h3>
+
+            <ul class="space-y-2">
+                <li><a href="{% url 'ecom:home' %}" class="{% if not active_category %}text-teal-500{% else %}text-gray-500 {% endif %}">All Categories</a></li>
+                {% for category in categories %}
+                    <li><a href="{% url 'ecom:home' %}?category={{ category.slug }}" class="{% if category.slug == active_category %}text-teal-500{% else %}text-gray-500 {% endif %} hover:text-teal-500">{{category.title}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+         <div class="products w-full lg:w-3/4 flex items-center flex-wrap">  
+            {% for p in products %}
+            <div class="card w-full md:w-1/3 xl:w-1/4 p-4 ">
+                <a href="{% url 'ecom:product_detail' p.slug %}">
+                    <img class="rounded-xl hover:shadow-lg" src="{{ p.image.url }}" alt="{{ p.title }} image">
+                    <h2 class="text-2xl">{{ p.title }}</h2>
+                    <p class="text-xs text-gray-400">$ {{ p.price }}</p>
+                </a>
+                   
+                    <button onclick="count()"><a href="{% url 'ecom:add_to_cart' p.slug %}" id="cart-btn"
+                        class="cart-btns mt-3 inline-block bg-teal-500 py-4 px-6 text-white rounded-xl hover:bg-teal-700">
+                        Add to Cart
+                    </a></button> 
+                        
+            </div> 
+            {% endfor %}    
+        </div>    
+    </div>
+     
+       
+            
+        
+           
+       
+        
+    
+{% endblock %}

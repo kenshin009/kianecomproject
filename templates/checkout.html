@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %} Checkout {% endblock %}
+
+{% block content %} 
+    
+    <div class="max-w-6xl mx-auto flex flex-wrap space-between items-start p-6 xl:px-0">
+        <div class="form w-full lg:w-3/4 mb-5">
+
+            <h2 class="uppercase text-lg mb-5">Checkout</h2>
+           
+            <form method="post" action="{% url 'ecom:make_order' cart.id %}" class="space-y-2">
+                {% csrf_token %}
+                <div>
+                    <label>Username</label>
+                    <input type="text" name="customer" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+                </div>
+
+                <div>
+                    <label>Shipping Address</label>
+                    <input type="text" name="address" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+                </div>
+                
+                <div>
+                    <label>Phone</label>
+                    <input type="text" name="phone" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+                </div>
+
+                <div>
+                    <label>Email</label>
+                    <input type="email" name="email" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+                </div>
+
+                <div>
+                    <button type="submit" id="checkout-button" class="p-4 bg-teal-500 rounded-xl hover:bg-teal-700 text-white">Checkout</button>
+                </div>
+            </form>
+           
+        </div>
+        <div class="products w-full lg:w-1/4 p-6 bg-gray-200 rounded-xl mb-5">
+
+            <div class="description">
+            {% for cp in cartproduct %}
+              Product Name: <h3>{{ cp.product.title }}</h3>
+              Price: <h5>{{ cp.price }}</h5>
+              Quantity: <h5>{{ cp.quantity }}</h5>
+              Subtotal: <h5>{{ cp.subtotal }}</h5>
+            {% endfor %}
+            </div>
+
+            <div class="mb-6 flex">
+                <span class="font-semibold">Toal:</span>
+                <span>{{ cart.total }}</span>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block scripts %}
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+<script type="application/javascript" src="https://js.stripe.com/v3/"></script>
+    
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ product.title }} {% endblock %}
+
+{% block content %}
+    <div class="max-w-6xl mx-auto flex flex-wrap py-6 px-6 xl:px-0">
+        <div class="images w-full mb-6 lg:mb-0 lg:w-3/5">
+            <img class="rounded-xl" src="{{product.image.url}}" alt="image of {{ product.title }}">
+        </div>
+        <div class="info w-full lg:w-2/5 lg:p-6">
+            <h1 class="text-2xl">{{ product.title }}</h1>
+
+            <p class="mt-1 text-gray-400">$ {{ product.price }}</p>
+            <p class="mt-5 text-gray-700">{{ product.description }}</p>
+
+            <button><a href="#" class="mt-3 inline-block bg-teal-500 py-4 px-6 text-white rounded-xl hover:bg-teal-700">
+                Add to Cart
+            </a></button>
+        </div>
+    </div>
+{% endblock %}

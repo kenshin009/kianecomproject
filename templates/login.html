@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+    <div class="max-w-lg mx-auto flex flex-wrap p-6">
+        <div class="w-full bg-gray-100 p-6 rounded-xl">
+            <h1 class="mb-6 text-2xl">Login</h1>
+
+            {{ message }}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="inline-block py-4 px-6 mt-5 bg-teal-500 rounded-xl hover:bg-teal-700 text-white">Log In</button>
+            </form>
+            <p>Don't have account? <a class="text-cyan-500 underline hover:text-cyan-800" href="{% url 'ecom:signup' %}"> Signup here.</a></p>
+        </div>
+    </div>
+{% endblock %}

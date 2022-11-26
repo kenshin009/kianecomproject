@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} My Account {% endblock %}
+
+{% block content %}
+    <div class="max-w-lg mx-auto p-6">
+        <h1 class="mb-5 text-3xl">My Account</h1>
+
+        <div class="mb-5">
+            <strong>Name:</strong> {{ request.user.get_full_name }}<br>
+            <strong>Username:</strong> {{ request.user.username }}<br>
+            <strong>Email:</strong> {{ request.user.email }}
+        </div>
+    </div>
+{% endblock %}
